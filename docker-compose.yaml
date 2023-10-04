@@ -1,0 +1,17 @@
+services:
+  nextjs:
+    build: 
+      context: ./next-app
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000
+    volumes:
+      - ./next-app/:/next-app
+      - /next-app/node_modules
+
+  nginx:
+    build: ./nginx/
+    ports:
+      - "8083:8080"
+    depends_on:
+      - nextjs
